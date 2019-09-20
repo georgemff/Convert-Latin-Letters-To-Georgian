@@ -26,28 +26,26 @@ const appliedLettersForShift = "TSRZCWJ";
             let value = $(this).val();
             let lastLetter;
             for (let i = 0; i < value.length; i++) {
-                for(let ii = 0; ii < alphabet.length; ii++){          
-                    if(isCapsLock && !isShift){
-                        value = value.toLowerCase();
-                    } else if (isCapsLock && isShift){
-                        if(appliedLettersForCaps.indexOf(value[value.length - 1]) != -1) {
-                            lastLetter = value[value.length - 1].toUpperCase();
-                            value = value.slice(0, -1);
-                            value += lastLetter;
-                            isCapsLock = false;
-                        }
-                    } else if (!isCapsLock && isShift) {
-                        if(appliedLettersForShift.indexOf(value[value.length - 1]) == -1) {
-                            lastLetter = value[value.length - 1].toLowerCase();
-                            value = value.slice(0, -1);
-                            value += lastLetter;
-                            isShift = false;
-                        }
+                if(isCapsLock && !isShift){
+                    value = value.toLowerCase();
+                } else if (isCapsLock && isShift){
+                    if(appliedLettersForCaps.indexOf(value[value.length - 1]) != -1) {
+                        lastLetter = value[value.length - 1].toUpperCase();
+                        value = value.slice(0, -1);
+                        value += lastLetter;
+                        isCapsLock = false;
                     }
-                    if(value[i] == alphabet[ii]){
-                        let newValue = value.replace(value[i], String.fromCharCode(ii + 4304));
-                        $(this).val(newValue);
+                } else if (!isCapsLock && isShift) {
+                    if(appliedLettersForShift.indexOf(value[value.length - 1]) == -1) {
+                        lastLetter = value[value.length - 1].toLowerCase();
+                        value = value.slice(0, -1);
+                        value += lastLetter;
+                        isShift = false;
                     }
+                }
+                if(alphabet.indexOf(value[i]) != -1){
+                    let newValue = value.replace(value[i], String.fromCharCode(alphabet.indexOf(value[i]) + 4304));
+                    $(this).val(newValue);
                 }
             }
         })
