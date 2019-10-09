@@ -21,7 +21,7 @@ const appliedLettersForShift = "TSRZCWJ";
     });
 
 //Convert Letters To Georgian
-    $('input').on('input', function(){
+    $('.lat-to-geo').on('input', function(e){
         $('.lat-to-geo').each(function(){
             let value = $(this).val();
             let lastLetter;
@@ -44,10 +44,16 @@ const appliedLettersForShift = "TSRZCWJ";
                     }
                 }
                 if(alphabet.indexOf(value[i]) != -1){
-                    let newValue = value.replace(value[i], String.fromCharCode(alphabet.indexOf(value[i]) + 4304));
-                    $(this).val(newValue);
+                    value = value.replace(value[i], String.fromCharCode(alphabet.indexOf(value[i]) + 4304));
+                    $(this).val(value);
+                } else {
+                	value = value.replace(value[i], value[i].toLowerCase());
+                	if(alphabet.indexOf(value[i]) != -1){
+	                    value = value.replace(value[i], String.fromCharCode(alphabet.indexOf(value[i]) + 4304));
+	                    $(this).val(value);
+                	}
                 }
             }
         })
     })
-}) 
+})
